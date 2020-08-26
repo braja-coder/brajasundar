@@ -26,7 +26,7 @@ public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private KitDao kitDAO;
 	private ProductMasterDao productMasterDao;
-
+	List<KitDetail> noOfKits = null;
 	public void setKitDAO(KitDao kitDAO) {
 		this.kitDAO = kitDAO;
 	}
@@ -41,7 +41,8 @@ public class UserController extends HttpServlet {
 		String jdbcPassword = config. getServletContext().getInitParameter("jdbcPassword");
 		
 		this.kitDAO = new KitDao(jdbcURL, jdbcUsername, jdbcPassword);
-		//this.productMasterDao = new ProductMasterDao(jdbcURL, jdbcUsername, jdbcPassword);
+		this.productMasterDao = new ProductMasterDao(jdbcURL, jdbcUsername, jdbcPassword);
+		
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -63,7 +64,7 @@ public class UserController extends HttpServlet {
 				viewName = showNewUserForm(request, response);
 				break;
 			case "insertuser":
-				insertNewUser(request, response);
+				viewName = insertNewUser(request, response);
 				viewName = showAllProducts(request, response);
 				break;
 			case "showproducts":
@@ -106,7 +107,7 @@ public class UserController extends HttpServlet {
 
 		if (username.equalsIgnoreCase("user") && password.equalsIgnoreCase("user")) {
 
-			return "user?action=list";
+			return "user?action=showproducts";
 		} else {
 			request.setAttribute("msg", "Invalid Crediantials");
 			request.setAttribute("username", username);
@@ -216,13 +217,14 @@ public class UserController extends HttpServlet {
 		return "showproductstoadd.jsp";
 	}
 
-	private void insertNewUser(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, SQLException {
+	private String insertNewUser(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, SQLException, ServletException, IOException {
 		String name = request.getParameter("pname");
 		String email = request.getParameter("pemail");
 		String phone = request.getParameter("pphone");
 		this.kitDAO.addNewVisitor(name, email, phone);
 		UserDetails usrdetails = new UserDetails(name, email, phone);
 		request.getSession().setAttribute("userdetails", usrdetails);
+		return "newuser.jsp";
 	}
 
 	private String showNewUserForm(HttpServletRequest request, HttpServletResponse response) {

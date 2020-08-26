@@ -23,13 +23,13 @@
 			<input type="text" name="password">
 			<button> Login </button>
 	</form>
-<h4 style="text-align:center; background-color: green" > Login As User</h4>	
+<h4 style="text-align:center; background-color: red" > Login As User</h4>	
 	<form action="user?action=loginuser" method="post">
 	
 			<label>Enter user Id : </label> 
 			<input type="text" name="userid">
 		
-			<label>Enter user password : </label> 
+			<label>Enter password : </label> 
 			<input type="text" name="password">
 			<button> Login </button>
 	</form>
@@ -48,7 +48,7 @@
 	
 <div>
 <label>Create Cart As User   </label>
-	<a href="user?action=newuser"><button>Create Corona Kit</button></a>
+	<a href="user?action=showkit"><button>Create Corona Kit</button></a>
 </div>
 <hr/>	
 	<jsp:include page="footer.jsp"/>

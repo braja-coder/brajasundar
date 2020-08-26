@@ -140,12 +140,12 @@ public class AdminController extends HttpServlet {
 	}
 
 	private String insertProduct(HttpServletRequest request, HttpServletResponse response) {
-
-		String pname = request.getParameter("pName");
-		String pcost = request.getParameter("pCost");
-		String pdescription = request.getParameter("pDescription");
+		int id = Integer.parseInt(request.getParameter("pid"));
+		String name = request.getParameter("pName");
+		String cost = request.getParameter("pCost");
+		String description = request.getParameter("pDescription");
 		try {
-			this.productMasterDao.addProduct(pname, pcost, pdescription);
+			this.productMasterDao.addProduct(id, name, cost, description);
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

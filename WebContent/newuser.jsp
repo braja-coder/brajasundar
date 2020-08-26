@@ -9,10 +9,11 @@
 </head>
 <body>
 <jsp:include page="header.jsp"/>
+	<a href="showproductstoadd.jsp"><button style="float: left">Show All Products</button></a>
 <hr/>
 	<h2 style="text-align:center;">User Details</h2>
 	
-	<form action="user?action=insertuser" method="get">
+	<form action="user?action=insertuser" method="post">
 		<div>
 			<div><label for="pname">Enter User Name</label> </div>
 			<div><input type="text" id="pname" name="pname"> </div>

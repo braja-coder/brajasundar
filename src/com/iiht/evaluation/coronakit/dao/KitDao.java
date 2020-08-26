@@ -6,14 +6,42 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.iiht.evaluation.coronakit.model.ProductMaster;
 
 
 
 public class KitDao {
 
-	private String jdbcURL = "jdbc:mysql://localhost:3307/covidKit;";
-	private String jdbcUsername="root";
-	private String jdbcPassword="root";
+	private String jdbcURL;
+	private String jdbcUsername;
+	private String jdbcPassword;
+	public String getJdbcURL() {
+		return jdbcURL;
+	}
+
+	public void setJdbcURL(String jdbcURL) {
+		this.jdbcURL = jdbcURL;
+	}
+
+	public String getJdbcUsername() {
+		return jdbcUsername;
+	}
+
+	public void setJdbcUsername(String jdbcUsername) {
+		this.jdbcUsername = jdbcUsername;
+	}
+
+	public String getJdbcPassword() {
+		return jdbcPassword;
+	}
+
+	public void setJdbcPassword(String jdbcPassword) {
+		this.jdbcPassword = jdbcPassword;
+	}
+
 	private Connection jdbcConnection;
 
 	public KitDao(String jdbcURL, String jdbcUsername, String jdbcPassword) {
@@ -29,6 +57,9 @@ public class KitDao {
 			} catch (ClassNotFoundException e) {
 				throw new SQLException(e);
 			}
+			setJdbcURL("jdbc:mysql://localhost:3307/covidKitDb1");
+			setJdbcUsername("root");
+			setJdbcPassword("root");
 			jdbcConnection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
 		}
 	}
@@ -41,7 +72,7 @@ public class KitDao {
 
 	
 	public boolean addNewVisitor(String name, String email, String phone) throws ClassNotFoundException, SQLException {
-		String sql = "insert into users (userName,userEmail,phoneNumber) values(?,?,?)";
+		String sql = "insert into users1 (userName,userEmail,phoneNumber) values(?,?,?)";
 		this.connect();
 		
 		PreparedStatement pstmt = this.jdbcConnection.prepareStatement(sql);
@@ -49,16 +80,17 @@ public class KitDao {
 		pstmt.setString(2, email);
 		pstmt.setInt(3, Integer.parseInt(phone));
 		
-		boolean added = pstmt.executeUpdate() > 0;
+		boolean added = pstmt.executeUpdate()>0;
 		
 		pstmt.close();
 		this.disconnect();
 		return added;
-	}
+		
+	}	
 	
 	public Integer addCovidkit(String personName, String email, String contactNumber,int totalAmount,String deliveryAddress,String orderDate,boolean orderFinalized) throws ClassNotFoundException, SQLException {
 		
-		String sql = "insert into covidKit (PersonName,Email,ContactNumber,TotalAmount,DeliveryAddress,OrderDate,pOrderFinalized) values(?,?,?,?,?,?,?)";
+		String sql = "insert into covidKit1 (PersonName,Email,ContactNumber,TotalAmount,DeliveryAddress,OrderDate,OrderFinalized) values(?,?,?,?,?,?,?)";
 		this.connect();
 		
 		PreparedStatement pstmt = this.jdbcConnection.prepareStatement(sql);
@@ -89,7 +121,7 @@ public class KitDao {
 	
 	public boolean addKitdetails(int coronaKitId, int productId, int quantity,int amount) throws ClassNotFoundException, SQLException {
 		
-		String sql = "insert into kitdetails (covidKitId,productId,quantity,amount) values(?,?,?,?)";
+		String sql = "insert into kitdetails1 (covidKitId,productId,quantity,amount) values(?,?,?,?)";
 		this.connect();
 		
 		PreparedStatement pstmt = this.jdbcConnection.prepareStatement(sql);

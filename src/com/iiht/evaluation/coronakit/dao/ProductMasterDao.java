@@ -15,9 +15,32 @@ import com.iiht.evaluation.coronakit.model.ProductMaster;
 
 public class ProductMasterDao {
 
-	private String jdbcURL = "jdbc:mysql://localhost:3307/covidKitDb1";
-	private String jdbcUsername="root";
-	private String jdbcPassword="root";
+	private String jdbcURL;
+	private String jdbcUsername;
+	private String jdbcPassword;
+	public String getJdbcURL() {
+		return jdbcURL;
+	}
+
+	public void setJdbcURL(String jdbcURL) {
+		this.jdbcURL = jdbcURL;
+	}
+
+	public String getJdbcUsername() {
+		return jdbcUsername;
+	}
+
+	public void setJdbcUsername(String jdbcUsername) {
+		this.jdbcUsername = jdbcUsername;
+	}
+
+	public String getJdbcPassword() {
+		return jdbcPassword;
+	}
+
+	public void setJdbcPassword(String jdbcPassword) {
+		this.jdbcPassword = jdbcPassword;
+	}
 	private Connection jdbcConnection;
 
 	public ProductMasterDao(String jdbcURL, String jdbcUsername, String jdbcPassword) {
@@ -33,6 +56,9 @@ public class ProductMasterDao {
 			} catch (ClassNotFoundException e) {
 				throw new SQLException(e);
 			}
+			setJdbcURL("jdbc:mysql://localhost:3307/covidKitDb1");
+			setJdbcUsername("root");
+			setJdbcPassword("root");
 			jdbcConnection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
 		}
 	}
@@ -44,14 +70,15 @@ public class ProductMasterDao {
 	}
 
 	// add DAO methods as per requirements
-	public boolean addProduct(String name, String cost, String description) throws ClassNotFoundException, SQLException {
-		String sql = "insert into productmaster1 (Name,Cost,Description) values(?,?,?)";
+	public boolean addProduct(int id, String name, String cost, String description) throws ClassNotFoundException, SQLException {
+		String sql = "insert into productmaster1 (id,Name,Cost,Description) values(?,?,?,?)";
 		this.connect();
 		
 		PreparedStatement pstmt = this.jdbcConnection.prepareStatement(sql);
-		pstmt.setString(1, name);
-		pstmt.setString(2, cost);
-		pstmt.setString(3,description );
+		pstmt.setInt(1, id);
+		pstmt.setString(2, name);
+		pstmt.setString(3, cost);
+		pstmt.setString(4,description );
 		
 		boolean added = pstmt.executeUpdate() > 0;
 		

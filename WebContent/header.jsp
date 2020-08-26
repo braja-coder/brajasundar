@@ -5,11 +5,6 @@
 
 <a href="index.jsp"> </a>
 <span> | </span> 
-<a href="loginadmin"> admin Login </a>
-<span> | </span> 
-<a href="loginuser"> user Login </a>
-<span> | </span> 
-
-<span> | </span> 
+ 
 </body>
 </header>

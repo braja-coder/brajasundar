@@ -37,7 +37,7 @@
 		</tbody>
 	</table>
 	<br/>
-  <a href="user?action=showAllProducts"><button>Show All Products</button></a>
+  <a href="user?action=showproducts"><button>Show All Products</button></a>
 <hr/>	
 	<jsp:include page="footer.jsp"/>
 </body>

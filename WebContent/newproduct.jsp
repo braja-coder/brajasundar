@@ -15,6 +15,10 @@
 
 <form action="admin?action=insertproduct" method="post">
 		<div>
+			<div><label for="pid">Enter product id</label> </div>
+			<div><input type="text" id="pid" name="pid"> </div>
+		</div>
+		<div>
 			<div><label for="pName">Enter product Name</label> </div>
 			<div><input type="text" id="pName" name="pName"> </div>
 		</div>
