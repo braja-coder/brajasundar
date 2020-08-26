@@ -1,0 +1,55 @@
+
+<%@page import="com.iiht.evaluation.coronakit.model.*"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Covid19 Kit-Order Summary(user)</title>
+</head>
+<body>
+<jsp:include page="header.jsp"/>
+<hr/>
+
+<h2>Order Confirmed</h2>
+
+<%
+	// fetch the shared data
+		CovidKit ckit =  (CovidKit) request.getAttribute("ckit");
+		List<KitDetail> kits =  (List<KitDetail>) request.getAttribute("KitDetails");
+%>
+	<table border="1" width="100%">
+		<thead>
+			<th>Product ID</th>
+			<th>Product Name</th>
+			<th>Product Quantity</th>
+			<th>Product Cost</th>
+		</thead>
+		<tbody>
+			<% for(KitDetail kit : kits) { %>
+			<tr>
+			    <td><%=kit.getProductId()%></td> 
+				<td><%=kit.getPname()%></td>
+				<td><%=kit.getQuantity()%></td>
+				<td><%=kit.getAmount()%></td>
+				
+			</tr>
+			<%  } %>
+		</tbody>
+	</table>
+	
+	<br/>
+	<label><%="User Name            : "+ckit.getPersonName() %></label><br/>
+	<label><%="User Email           : "+ckit.getEmail() %></label><br/>
+	<label><%="User Address         : "+ckit.getDeliveryAddress() %></label><br/>
+	<label><%="User Number          : "+ckit.getContactNumber()%></label><br/>
+	<label><%="Total Bill Amount    : "+ckit.getTotalAmount()%></label><br/>
+     <label><%="Date of Purchage    : "+ckit.getOrderDate()%></label><br/>
+	
+<hr/>	
+	<jsp:include page="footer.jsp"/>
+</body>
+</html>
